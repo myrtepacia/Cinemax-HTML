@@ -265,6 +265,142 @@
       border-color: #fb2c36;
     }
 
+    /* The date box that drops the calendar open */
+
+    .date-field {
+      position: relative;
+    }
+
+    .date-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .date-arrow {
+      color: #99a1af;
+      font-size: 11px;
+    }
+
+    /* The calendar, which hangs under the date box while it is open */
+
+    .calendar {
+      position: absolute;
+      z-index: 5;
+      top: calc(100% + 6px);
+      left: 0;
+      width: 100%;
+      min-width: 260px;
+      padding: 14px;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      box-shadow: 0 14px 30px rgba(16, 24, 40, 0.15);
+    }
+
+    .calendar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .calendar-month {
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .calendar-nav {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1;
+      color: #101828;
+      cursor: pointer;
+    }
+
+    .calendar-nav:hover {
+      border-color: #fb2c36;
+      color: #fb2c36;
+    }
+
+    .calendar-nav:disabled {
+      color: #e5e7eb;
+      border-color: #f3f4f6;
+      cursor: default;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar-day-names span {
+      padding-bottom: 6px;
+      color: #99a1af;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .calendar-date {
+      padding: 8px 0;
+      background-color: #ffffff;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: #101828;
+      cursor: pointer;
+    }
+
+    .calendar-date:hover {
+      background-color: #fef2f2;
+      border-color: #fb2c36;
+    }
+
+    /* Days that have already passed stay grey and dead */
+    .calendar-date:disabled {
+      background-color: #ffffff;
+      border-color: transparent;
+      color: #d1d5dc;
+      cursor: default;
+    }
+
+    .calendar-date-today:enabled {
+      color: #4f39f6;
+      border-color: #e0e7ff;
+    }
+
+    .calendar-date-picked,
+    .calendar-date-picked:enabled,
+    .calendar-date-picked:hover {
+      background-color: #fb2c36;
+      border-color: #fb2c36;
+      color: #ffffff;
+    }
+
+    .calendar-until {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #f3f4f6;
+      color: #6a7282;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
     .pick-first {
       padding: 48px 20px;
       background-color: #ffffff;
@@ -414,10 +550,6 @@
       gap: 10px;
     }
 
-    .snack {
-      cursor: pointer;
-    }
-
     .snack-box {
       display: flex;
       align-items: center;
@@ -429,11 +561,7 @@
       border-radius: 12px;
     }
 
-    .snack-box:hover {
-      border-color: #fb2c36;
-    }
-
-    .snack input:checked + .snack-box {
+    .snack-box-picked {
       background-color: #fef2f2;
       border-color: #fb2c36;
     }
@@ -451,9 +579,57 @@
       font-size: 12px;
     }
 
+    .snack-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
     .snack-price {
       font-size: 14px;
       font-weight: 900;
+    }
+
+    /* The + and - buttons that set how many of a snack to buy */
+
+    .snack-count {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .snack-step {
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1;
+      color: #101828;
+      cursor: pointer;
+    }
+
+    .snack-step:hover {
+      border-color: #fb2c36;
+      color: #fb2c36;
+    }
+
+    .snack-step:disabled {
+      border-color: #f3f4f6;
+      color: #e5e7eb;
+      cursor: default;
+    }
+
+    .snack-quantity {
+      min-width: 22px;
+      font-size: 14px;
+      font-weight: 900;
+      text-align: center;
     }
 
     /* The total at the bottom */
@@ -554,15 +730,45 @@
         </div>
 
         <div class="booking-block">
-          <label class="field-label" for="date">Date</label>
-          <select class="dropdown" id="date">
-            <option value="">Choose a date</option>
-            <option value="2026-09-05">Sat, 5 Sep</option>
-            <option value="2026-09-06">Sun, 6 Sep</option>
-            <option value="2026-09-07">Mon, 7 Sep</option>
-            <option value="2026-09-08">Tue, 8 Sep</option>
-            <option value="2026-09-09">Wed, 9 Sep</option>
-          </select>
+          <span class="field-label" id="date-label">Date</span>
+
+          <div class="date-field" id="date-field">
+
+            <button class="dropdown date-button" type="button" id="date-button"
+                    aria-haspopup="true" aria-expanded="false" aria-labelledby="date-label date-button">
+              <span id="date-text">Choose a date</span>
+              <span class="date-arrow">&#9662;</span>
+            </button>
+
+            <div class="calendar" id="calendar" role="group" aria-labelledby="date-label" hidden>
+
+              <div class="calendar-head">
+                <button class="calendar-nav" type="button" id="calendar-back" aria-label="Previous month">&#8249;</button>
+                <p class="calendar-month" id="calendar-month">Month</p>
+                <button class="calendar-nav" type="button" id="calendar-next" aria-label="Next month">&#8250;</button>
+              </div>
+
+              <div class="calendar-grid calendar-day-names">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+              </div>
+
+              <!-- The script fills this in for the month being looked at -->
+              <div class="calendar-grid" id="calendar-dates"></div>
+
+              <p class="calendar-until" id="calendar-until"></p>
+
+            </div>
+
+          </div>
+
+          <!-- Holds the date that was picked, the way the old dropdown did -->
+          <input type="hidden" id="date" value="">
         </div>
 
         <div class="booking-block">
@@ -719,108 +925,156 @@
             <p class="snack-heading">Popcorn</p>
             <div class="snack-list">
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Popcorn, Regular</span>
                     <span class="snack-detail">Salted, 64 oz</span>
                   </span>
-                  <span class="snack-price">₱120</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱120</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Popcorn, Regular" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Popcorn, Regular">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Popcorn, Large</span>
                     <span class="snack-detail">Cheese or Caramel, 85 oz</span>
                   </span>
-                  <span class="snack-price">₱160</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱160</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Popcorn, Large" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Popcorn, Large">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
             </div>
 
             <p class="snack-heading">Drinks</p>
             <div class="snack-list">
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Soda, Regular</span>
                     <span class="snack-detail">16 oz</span>
                   </span>
-                  <span class="snack-price">₱70</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱70</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Soda, Regular" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Soda, Regular">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Soda, Large</span>
                     <span class="snack-detail">22 oz, free refill</span>
                   </span>
-                  <span class="snack-price">₱95</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱95</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Soda, Large" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Soda, Large">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
             </div>
 
             <p class="snack-heading">Candy</p>
             <div class="snack-list">
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Chocolate Bar</span>
                     <span class="snack-detail">90 g</span>
                   </span>
-                  <span class="snack-price">₱60</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱60</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Chocolate Bar" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Chocolate Bar">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Gummy Candy</span>
                     <span class="snack-detail">Assorted, 100 g</span>
                   </span>
-                  <span class="snack-price">₱55</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱55</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Gummy Candy" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Gummy Candy">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
             </div>
 
             <p class="snack-heading">Combos</p>
             <div class="snack-list">
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Solo Combo</span>
                     <span class="snack-detail">Regular popcorn and regular soda</span>
                   </span>
-                  <span class="snack-price">₱180</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱180</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Solo Combo" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Solo Combo">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
-              <label class="snack">
-                <input type="checkbox">
-                <span class="snack-box">
+              <div class="snack">
+                <div class="snack-box">
                   <span>
                     <span class="snack-name">Barkada Combo</span>
                     <span class="snack-detail">2 large popcorn and 2 large sodas</span>
                   </span>
-                  <span class="snack-price">₱480</span>
-                </span>
-              </label>
+                  <span class="snack-side">
+                    <span class="snack-price">₱480</span>
+                    <span class="snack-count">
+                      <button class="snack-step snack-less" type="button" data-step="-1" aria-label="One less Barkada Combo" disabled>&minus;</button>
+                      <span class="snack-quantity">0</span>
+                      <button class="snack-step snack-more" type="button" data-step="1" aria-label="One more Barkada Combo">+</button>
+                    </span>
+                  </span>
+                </div>
+              </div>
 
             </div>
 
@@ -873,7 +1127,26 @@
 
   <script>
     (function () {
-      var dateSelect = document.getElementById('date');
+
+      // The most of any one snack a booking may hold
+      var maxPerSnack = 10;
+
+      var monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+      var dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+      var dateField = document.getElementById('date-field');
+      var dateButton = document.getElementById('date-button');
+      var dateText = document.getElementById('date-text');
+      var dateHolder = document.getElementById('date');
+
+      var calendar = document.getElementById('calendar');
+      var calendarDates = document.getElementById('calendar-dates');
+      var calendarMonth = document.getElementById('calendar-month');
+      var calendarBack = document.getElementById('calendar-back');
+      var calendarNext = document.getElementById('calendar-next');
+      var calendarUntil = document.getElementById('calendar-until');
+
       var showtimeSelect = document.getElementById('showtime');
       var pickFirst = document.getElementById('pick-first');
       var seatsAndSnacks = document.getElementById('seats-and-snacks');
@@ -885,11 +1158,133 @@
 
       // Read the ticket price once from the page's own starting text, so
       // each movie keeps its own price without repeating it in the script.
-      var priceMatch = summaryTickets.textContent.match(/\u20b1([0-9]+)/);
+      var priceMatch = summaryTickets.textContent.match(/₱([0-9]+)/);
       var ticketPrice = priceMatch ? parseInt(priceMatch[1], 10) : 0;
 
+      // Turns '2026-09-18' into a date the browser can compare
+      function readDate(text) {
+        var parts = text.split('-');
+        return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+      }
+
+      // Turns a date back into '2026-09-18'
+      function dateKey(date) {
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return date.getFullYear() +
+          '-' + (month < 10 ? '0' : '') + month +
+          '-' + (day < 10 ? '0' : '') + day;
+      }
+
+      // Counts a month as one number so two months are easy to compare
+      function monthNumber(date) {
+        return date.getFullYear() * 12 + date.getMonth();
+      }
+
+      // How a picked date reads on the date box, like 'Fri, 18 Sep 2026'
+      function readableDate(key) {
+        var date = readDate(key);
+        return dayNames[date.getDay()] + ', ' + date.getDate() + ' ' +
+          monthNames[date.getMonth()].slice(0, 3) + ' ' + date.getFullYear();
+      }
+
+      // Today, with the clock part dropped so only the day itself is compared
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // The last day this movie is showing, the same date the home page gives
+      // as its "Until ..." line on the movie's card.
+      var lastDay = readDate('2026-10-11');
+
+      var chosenDate = '';
+      var viewYear = today.getFullYear();
+      var viewMonth = today.getMonth();
+
+      // A day can be booked while it sits between today and the movie's last
+      // day. Days are measured against today, so a date that has gone past
+      // greys out by itself: on the 17th the 17th can still be booked, and
+      // once the date rolls over to the 18th the 17th is dead. Days after the
+      // movie stops showing are greyed out the same way.
+      function isAvailable(date) {
+        return date >= today && date <= lastDay;
+      }
+
+      function drawCalendar() {
+        calendarMonth.textContent = monthNames[viewMonth] + ' ' + viewYear;
+        calendarDates.innerHTML = '';
+
+        // Empty boxes so the 1st lands under the right weekday
+        var startsOn = new Date(viewYear, viewMonth, 1).getDay();
+        var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        var count;
+
+        for (count = 0; count < startsOn; count++) {
+          calendarDates.appendChild(document.createElement('span'));
+        }
+
+        for (count = 1; count <= daysInMonth; count++) {
+          var date = new Date(viewYear, viewMonth, count);
+          var key = dateKey(date);
+          var box = document.createElement('button');
+
+          box.type = 'button';
+          box.className = 'calendar-date';
+          box.textContent = count;
+          box.setAttribute('data-date', key);
+
+          if (isAvailable(date)) {
+            box.title = 'Book ' + count + ' ' + monthNames[viewMonth] + ' ' + viewYear;
+          } else {
+            box.disabled = true;
+            box.title = date < today
+              ? 'This date has already passed'
+              : 'This movie has stopped showing by then';
+          }
+
+          if (key === dateKey(today)) {
+            box.className += ' calendar-date-today';
+          }
+
+          if (key === chosenDate) {
+            box.className += ' calendar-date-picked';
+            box.setAttribute('aria-pressed', 'true');
+          }
+
+          calendarDates.appendChild(box);
+        }
+
+        // Months that are wholly past are of no use to anyone. Going forward
+        // has no end: December rolls on into January of the next year.
+        calendarBack.disabled = (viewYear * 12 + viewMonth) <= monthNumber(today);
+      }
+
+      function moveMonth(step) {
+        var moved = viewYear * 12 + viewMonth + step;
+        if (moved < monthNumber(today)) {
+          return;
+        }
+        viewYear = Math.floor(moved / 12);
+        viewMonth = moved % 12;
+        drawCalendar();
+      }
+
+      function openCalendar() {
+        // Always open on the month of the date being held, or on this month
+        var start = chosenDate === '' ? today : readDate(chosenDate);
+        viewYear = start.getFullYear();
+        viewMonth = start.getMonth();
+        drawCalendar();
+        calendar.hidden = false;
+        dateButton.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeCalendar() {
+        calendar.hidden = true;
+        dateButton.setAttribute('aria-expanded', 'false');
+      }
+
       function showOrHideSeatsAndSnacks() {
-        var ready = dateSelect.value !== '' && showtimeSelect.value !== '';
+        var ready = chosenDate !== '' && showtimeSelect.value !== '';
         pickFirst.hidden = ready;
         seatsAndSnacks.hidden = !ready;
       }
@@ -906,36 +1301,114 @@
         });
         summarySeats.textContent = chosenSeats.length ? chosenSeats.join(', ') : 'Tap the seats above';
 
-        // Selected snacks
+        // Snacks, counted by how many of each were added
         var chosenSnackNames = [];
         var snackTotal = 0;
-        seatsAndSnacks.querySelectorAll('.snack').forEach(function (label) {
-          var input = label.querySelector('input[type="checkbox"]');
-          if (input.checked) {
-            var name = label.querySelector('.snack-name').textContent.trim();
-            var price = parseInt(label.querySelector('.snack-price').textContent.replace(/[^0-9]/g, ''), 10) || 0;
-            chosenSnackNames.push(name);
-            snackTotal += price;
+        seatsAndSnacks.querySelectorAll('.snack').forEach(function (snack) {
+          var howMany = parseInt(snack.querySelector('.snack-quantity').textContent, 10) || 0;
+          if (howMany > 0) {
+            var name = snack.querySelector('.snack-name').textContent.trim();
+            var price = parseInt(snack.querySelector('.snack-price').textContent.replace(/[^0-9]/g, ''), 10) || 0;
+            chosenSnackNames.push(name + ' × ' + howMany);
+            snackTotal += price * howMany;
           }
         });
-        summarySnacks.textContent = chosenSnackNames.length ? chosenSnackNames.join(', ') : 'Tick any items above';
+        summarySnacks.textContent = chosenSnackNames.length ? chosenSnackNames.join(', ') : 'Use + to add any items above';
 
         // Ticket count and grand total
         var ticketCount = chosenSeats.length;
         var ticketWord = ticketCount === 1 ? 'ticket' : 'tickets';
-        summaryTickets.textContent = ticketCount + ' ' + ticketWord + ' \u00d7 \u20b1' + ticketPrice;
-        summaryAmount.textContent = '\u20b1' + (ticketCount * ticketPrice + snackTotal).toLocaleString();
+        summaryTickets.textContent = ticketCount + ' ' + ticketWord + ' × ₱' + ticketPrice;
+        summaryAmount.textContent = '₱' + (ticketCount * ticketPrice + snackTotal).toLocaleString();
       }
 
-      dateSelect.addEventListener('change', showOrHideSeatsAndSnacks);
+      // The date box opens and shuts the calendar
+      dateButton.addEventListener('click', function () {
+        if (calendar.hidden) {
+          openCalendar();
+        } else {
+          closeCalendar();
+        }
+      });
+
+      // Picking a day fills the box and shuts the calendar again
+      calendarDates.addEventListener('click', function (event) {
+        var box = event.target.closest('.calendar-date');
+        if (!box || box.disabled) {
+          return;
+        }
+        chosenDate = box.getAttribute('data-date');
+        dateHolder.value = chosenDate;
+        dateText.textContent = readableDate(chosenDate);
+        closeCalendar();
+        showOrHideSeatsAndSnacks();
+      });
+
+      calendarBack.addEventListener('click', function () {
+        moveMonth(-1);
+      });
+
+      calendarNext.addEventListener('click', function () {
+        moveMonth(1);
+      });
+
+      // A click anywhere else, or the Escape key, puts the calendar away
+      document.addEventListener('click', function (event) {
+        if (!dateField.contains(event.target)) {
+          closeCalendar();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeCalendar();
+        }
+      });
+
       showtimeSelect.addEventListener('change', showOrHideSeatsAndSnacks);
 
+      // The + and - buttons on the snacks
+      seatsAndSnacks.addEventListener('click', function (event) {
+        var step = event.target.closest('.snack-step');
+        if (!step) {
+          return;
+        }
+
+        var snack = step.closest('.snack');
+        var quantity = snack.querySelector('.snack-quantity');
+        var howMany = (parseInt(quantity.textContent, 10) || 0) + Number(step.getAttribute('data-step'));
+
+        if (howMany < 0) {
+          howMany = 0;
+        }
+        if (howMany > maxPerSnack) {
+          howMany = maxPerSnack;
+        }
+
+        quantity.textContent = howMany;
+        snack.querySelector('.snack-less').disabled = howMany === 0;
+        snack.querySelector('.snack-more').disabled = howMany === maxPerSnack;
+
+        if (howMany > 0) {
+          snack.querySelector('.snack-box').classList.add('snack-box-picked');
+        } else {
+          snack.querySelector('.snack-box').classList.remove('snack-box-picked');
+        }
+
+        updateSummary();
+      });
+
+      // The seats
       seatsAndSnacks.addEventListener('change', function (event) {
         if (event.target.matches('input[type="checkbox"]')) {
           updateSummary();
         }
       });
 
+      calendarUntil.textContent = 'Showing until ' + lastDay.getDate() + ' ' +
+        monthNames[lastDay.getMonth()] + ' ' + lastDay.getFullYear();
+
+      drawCalendar();
       showOrHideSeatsAndSnacks();
       updateSummary();
     })();

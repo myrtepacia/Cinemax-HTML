@@ -1419,6 +1419,182 @@ button.button:disabled {
   gap: 16px;
 }
 
+.field-hint {
+  margin-top: 6px;
+  color: #6a7282;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* A length is two numbers, not a line of text, so nothing can be typed in a
+   shape the website cannot read back. */
+
+.length-pair {
+  display: flex;
+  gap: 10px;
+}
+
+.length-part {
+  position: relative;
+  flex: 1;
+}
+
+.length-part input {
+  padding-right: 46px;
+}
+
+.length-unit {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  color: #99a1af;
+  font-size: 12px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* The run date is picked from a calendar for the same reason: what the staff
+   choose is a real date, which is what a booking page needs. */
+
+.date-field {
+  position: relative;
+}
+
+.date-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #101828;
+  text-align: left;
+  cursor: pointer;
+}
+
+.date-button:hover,
+.date-button:focus {
+  outline: none;
+  border-color: #fb2c36;
+}
+
+.date-arrow {
+  color: #99a1af;
+  font-size: 11px;
+}
+
+.calendar {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  min-width: 260px;
+  padding: 14px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 14px 30px rgba(16, 24, 40, 0.15);
+}
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.calendar-month {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.calendar-nav {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  color: #101828;
+  cursor: pointer;
+}
+
+.calendar-nav:hover {
+  border-color: #fb2c36;
+  color: #fb2c36;
+}
+
+.calendar-nav:disabled {
+  color: #e5e7eb;
+  border-color: #f3f4f6;
+  cursor: default;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day-names span {
+  padding-bottom: 6px;
+  color: #99a1af;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.calendar-date {
+  padding: 8px 0;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: #101828;
+  cursor: pointer;
+}
+
+.calendar-date:hover {
+  background-color: #fef2f2;
+  border-color: #fb2c36;
+}
+
+/* A run cannot end on a day that has already gone by */
+.calendar-date:disabled {
+  background-color: #ffffff;
+  border-color: transparent;
+  color: #d1d5dc;
+  cursor: default;
+}
+
+.calendar-date-today:enabled {
+  color: #4f39f6;
+  border-color: #e0e7ff;
+}
+
+.calendar-date-picked,
+.calendar-date-picked:enabled,
+.calendar-date-picked:hover {
+  background-color: #fb2c36;
+  border-color: #fb2c36;
+  color: #ffffff;
+}
+
 @media (max-width: 620px) {
   .hide-small {
     display: none;
