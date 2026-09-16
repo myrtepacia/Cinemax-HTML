@@ -9,6 +9,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cinemax.css">
+
+  <style>
+    .order-action-btn {
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background-color 0.15s;
+    }
+
+    /* Preparing section — moves order to Ready */
+    .btn-mark-ready {
+      background-color: #fb2c36;
+      border: none;
+      color: #ffffff;
+    }
+    .btn-mark-ready:hover {
+      background-color: #e7000b;
+    }
+
+    /* Ready section — moves order to Sold */
+    .btn-mark-pickup {
+      background-color: #fb2c36;
+      border: none;
+      color: #ffffff;
+    }
+    .btn-mark-pickup:hover {
+      background-color: #e7000b;
+    }
+  </style>
 </head>
 <body>
 
@@ -65,7 +99,7 @@
 
       <h2>Snack orders</h2>
       <p class="panel-note" id="orders-note">
-        Change the dropdown on an order and it moves to that group. 9 snacks in total.
+        Tap a button to move an order to the next stage. 9 snacks in total.
       </p>
 
       <p class="loading-note hidden" id="orders-loading">Loading the counter queue&hellip;</p>
@@ -87,10 +121,7 @@
               <p class="order-who">CMX-8F41K2 &bull; Juan Dela Cruz &bull; 3 snacks</p>
             </div>
             <p class="order-price">&#8369;415</p>
-            <select class="order-status">
-              <option value="preparing" selected>Preparing</option>
-              <option value="ready">Ready</option>
-            </select>
+            <button class="order-action-btn btn-mark-ready" onclick="moveToReady(this)">Ready</button>
           </div>
 
           <div class="order-row" data-order-id="42">
@@ -99,10 +130,7 @@
               <p class="order-who">CMX-7B93L5 &bull; Maria Santos &bull; 1 snack</p>
             </div>
             <p class="order-price">&#8369;480</p>
-            <select class="order-status">
-              <option value="preparing" selected>Preparing</option>
-              <option value="ready">Ready</option>
-            </select>
+            <button class="order-action-btn btn-mark-ready" onclick="moveToReady(this)">Ready</button>
           </div>
 
         </div>
@@ -125,10 +153,7 @@
               <p class="order-who">CMX-3D07Q9 &bull; Ana Reyes &bull; 2 snacks</p>
             </div>
             <p class="order-price">&#8369;240</p>
-            <select class="order-status">
-              <option value="ready" selected>Ready</option>
-              <option value="sold">Sold</option>
-            </select>
+            <button class="order-action-btn btn-mark-pickup" onclick="moveToSold(this)">Picked Up</button>
           </div>
 
         </div>
@@ -180,6 +205,46 @@
       <p class="footer-copyright">&copy; 2026 Cinemax. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    function refreshCounts() {
+      document.getElementById('count-preparing').textContent =
+        document.getElementById('group-preparing').querySelectorAll('.order-row').length;
+      document.getElementById('count-ready').textContent =
+        document.getElementById('group-ready').querySelectorAll('.order-row').length;
+      document.getElementById('count-sold').textContent =
+        document.getElementById('group-sold').querySelectorAll('.order-row').length;
+    }
+
+    function refreshEmpty() {
+      ['preparing', 'ready', 'sold'].forEach(function (key) {
+        var count = document.getElementById('group-' + key).querySelectorAll('.order-row').length;
+        document.getElementById('empty-' + key).classList.toggle('hidden', count > 0);
+      });
+    }
+
+    function moveToReady(btn) {
+      var row = btn.closest('.order-row');
+      btn.textContent = 'Picked Up';
+      btn.classList.remove('btn-mark-ready');
+      btn.classList.add('btn-mark-pickup');
+      btn.onclick = function () { moveToSold(this); };
+      document.getElementById('group-ready').appendChild(row);
+      refreshCounts();
+      refreshEmpty();
+    }
+
+    function moveToSold(btn) {
+      var row = btn.closest('.order-row');
+      var tag = document.createElement('span');
+      tag.className = 'sold-tag';
+      tag.textContent = 'Sold';
+      btn.replaceWith(tag);
+      document.getElementById('group-sold').appendChild(row);
+      refreshCounts();
+      refreshEmpty();
+    }
+  </script>
 
 </body>
 </html>
